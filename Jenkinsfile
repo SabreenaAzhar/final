@@ -1,8 +1,13 @@
 pipeline {
     agent any
 
+    triggers {
+        // Trigger on GitHub push
+        githubPush()
+    }
+
     stages {
-        stage('Checkout') {
+        stage('Clone Repo') {
             steps {
                 checkout scm
             }
@@ -37,6 +42,17 @@ pipeline {
                     echo "Building Flask application..."
                     python -m py_compile app.py
                     echo "✅ Application compiled successfully"
+                '''
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                bat '''
+                    echo "Deploying Flask application..."
+                    mkdir C:\\temp\\flask_app || exit 0
+                    copy app.py C:\\temp\\flask_app\\
+                    echo "✅ Deployment simulated successfully"
                 '''
             }
         }
