@@ -1,1 +1,1 @@
-# final
+Flask CRUD app with HTML UI (Bootstrap). Run: python app.py
