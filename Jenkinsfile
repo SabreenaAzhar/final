@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Clone Repo') {
             steps {
                 checkout scm
@@ -17,13 +16,13 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'pytest'
+                bat 'python -m pytest'
             }
         }
 
         stage('Build') {
             steps {
-                bat 'echo Build completed successfully'
+                bat 'echo Build completed'
             }
         }
 
