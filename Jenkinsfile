@@ -1,31 +1,36 @@
 pipeline {
     agent any
+
     stages {
+
+        stage('Clone Repo') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip3 install -r requirements.txt'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'pytest'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Building..'
-                // Here you can define commands for your build
+                sh 'echo "Build step done"'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                // Here you can define commands for your tests
-            }
-        }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
-                // Here you can define commands for your deployment
+                sh 'cp app.py /tmp/'
             }
-        }
-    }
-    post {
-        always {
-            echo 'post build condition running'
-        }
-        failure {
-            echo 'post action if build failed'
         }
     }
 }
