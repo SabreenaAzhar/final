@@ -11,25 +11,25 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip3 install -r requirements.txt'
+                bat 'pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest'
+                bat 'pytest'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'echo "Build step done"'
+                bat 'echo Build completed'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'cp app.py /tmp/'
+                bat 'copy app.py C:\\temp\\'
             }
         }
     }
