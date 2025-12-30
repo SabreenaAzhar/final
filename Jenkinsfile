@@ -14,30 +14,30 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh '''
+                bat '''
                     python --version
                     python -m pip install --upgrade pip
-                    if [ -f requirements.txt ]; then
+                    if exist requirements.txt (
                         pip install -r requirements.txt
-                    else
+                    ) else (
                         echo "⚠️ requirements.txt not found, installing essential packages..."
                         pip install Flask Flask-SQLAlchemy Werkzeug bleach pytest pytest-flask
-                    fi
+                    )
                 '''
             }
         }
 
         stage('Run Unit Tests') {
             steps {
-                sh '''
-                    pytest test_app.py -v --tb=short || true
+                bat '''
+                    pytest test_app.py -v --tb=short || exit 0
                 '''
             }
         }
 
         stage('Build Application') {
             steps {
-                sh '''
+                bat '''
                     echo "Building Flask application..."
                     python -m py_compile app.py
                     echo "✅ Application compiled successfully"
