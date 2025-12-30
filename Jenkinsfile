@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        PYTHON_VERSION = '3.10'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -30,7 +26,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 bat '''
-                    pytest test_app.py -v --tb=short || exit 0
+                    pytest -v --tb=short || exit 0
                 '''
             }
         }
