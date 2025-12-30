@@ -11,7 +11,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'pip install -r requirements.txt'
+                bat 'python -m pip install -r requirements.txt'
             }
         }
 
@@ -23,12 +23,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'echo Build completed'
+                bat 'echo Build completed successfully'
             }
         }
 
         stage('Deploy') {
             steps {
+                bat 'mkdir C:\\temp || exit 0'
                 bat 'copy app.py C:\\temp\\'
             }
         }
